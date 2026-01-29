@@ -15,7 +15,7 @@ public class DebugGame : Game
 
     private float _speed;
 
-    public Game1()
+    public DebugGame()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
@@ -42,7 +42,8 @@ public class DebugGame : Game
 
     protected override void Update(GameTime gameTime)
     {
-        Move(gameTime);
+        Move(gameTime); // Handle movement logic
+        base.Update(gameTime); // Call base Update
     }
 
     protected override void Draw(GameTime gameTime)
@@ -67,12 +68,7 @@ public class DebugGame : Game
 
     private void Move(GameTime gameTime)
     {
-        float seconds = (float)gameTime.TotalGameTime.TotalSeconds;
-        _position.X += _speed * seconds;
-
-        base.Update(gameTime);
-
-        _position = new Vector2(60f, 80f);
+        float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds; // Use elapsed time for consistent movement
+        _position.X += _speed * deltaTime; // Update position based on speed and elapsed time
     }
 }
- 
