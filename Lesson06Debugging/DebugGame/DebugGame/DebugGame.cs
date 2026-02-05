@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace debugging;
+namespace DebugGame;
 
 public class DebugGame : Game
 {
@@ -55,8 +55,8 @@ public class DebugGame : Game
         Rectangle rect = new Rectangle(
             (int)_position.X,
             (int)_position.Y,
-            (int)_dimensions.Y,
-            (int)_dimensions.X
+            (int)_dimensions.X,
+            (int)_dimensions.Y
         );
 
         _spriteBatch.Draw(_pixel, rect, Color.Black);
