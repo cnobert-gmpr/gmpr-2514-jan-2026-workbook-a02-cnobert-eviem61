@@ -1,0 +1,85 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
+namespace ponggame;
+
+public class PongGame : Game
+{
+    private GraphicsDeviceManager _graphics;
+    private SpriteBatch _spriteBatch;
+
+    private const int _WindowWidth = 750, _WindowHeight = 450, _BallWidthAndHeight = 21, _PlayAreaEdgeLineWidth = 12;
+
+    private Texture2D _backgroundTexture, _ballTexture;
+
+    private Vector2 _ballPosition, _ballDirection;
+    private float _ballSpeed;
+
+    internal Rectangle PlayAreaBoundingBox
+    {
+        get => new Rectangle(0, 0, _WindowWidth, _WindowHeight);
+    }
+
+    public PongGame()
+    {
+        _graphics = new GraphicsDeviceManager(this);
+        Content.RootDirectory = "Content";
+        IsMouseVisible = true;
+    }
+
+    protected override void Initialize()
+    {
+        _graphics.PreferredBackBufferWidth = _WindowWidth;
+        _graphics.PreferredBackBufferHeight = _WindowHeight;
+        _graphics.ApplyChanges();
+
+        _ballPosition.X = 150;
+        _ballPosition.Y = 195;
+
+        _ballSpeed = 60;
+        _ballDirection = new Vector2(-1, -1);
+
+        base.Initialize();
+    }
+
+    protected override void LoadContent()
+    {
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+        _backgroundTexture = Content.Load<Texture2D>("pong-assets/Court");
+        _ballTexture = Content.Load<Texture2D>("pong-assets/Ball");
+    }
+
+    protected override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+    {
+        float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;
+        _ballPosition += _ballDirection * _ballSpeed * dt;
+
+        if(_ballPosition.X <= PlayAreaBoundingBox.Left || _ballPosition.X + _BallWidthAndHeight >= PlayAreaBoundingBox.Right)
+        {
+            _ballDirection.X *= -1;
+        }
+        if(_ballPosition.Y <= PlayAreaBoundingBox.Top ||
+           (_ballPosition.Y + _BallWidthAndHeight) >= PlayAreaBoundingBox.Bottom)
+        {
+            _ballDirection.Y *= -1;
+        }
+        base.Update(gameTime);
+    }
+
+    protected override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
+    {
+        GraphicsDevice.Clear(Color.CornflowerBlue);
+
+        _spriteBatch.Begin();
+
+        _spriteBatch.Draw(_backgroundTexture, new Rectangle(0, 0, _WindowWidth, _WindowHeight), Color.White);
+
+        Rectangle ballRectangle = new Rectangle((int) _ballPosition.X, (int) _ballPosition.Y, _BallWidthAndHeight, _BallWidthAndHeight);
+        _spriteBatch.Draw(_ballTexture, ballRectangle, Color.White);
+        _spriteBatch.End();
+
+        base.Draw(gameTime);
+    }
+}
