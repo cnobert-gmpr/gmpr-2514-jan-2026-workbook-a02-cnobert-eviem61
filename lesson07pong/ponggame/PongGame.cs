@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ponggame;
 
-public class Game1 : Game
+public class PongGame : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
@@ -21,7 +21,7 @@ public class Game1 : Game
         get => new Rectangle(0, 0, _WindowWidth, _WindowHeight);
     }
 
-    public Game1()
+    public PongGame()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
@@ -51,7 +51,7 @@ public class Game1 : Game
         _ballTexture = Content.Load<Texture2D>("pong-assets/Ball");
     }
 
-    protected override void Update(GameTime gameTime)
+    protected override void Update(Microsoft.Xna.Framework.GameTime gameTime)
     {
         float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;
         _ballPosition += _ballDirection * _ballSpeed * dt;
@@ -68,7 +68,7 @@ public class Game1 : Game
         base.Update(gameTime);
     }
 
-    protected override void Draw(GameTime gameTime)
+    protected override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 

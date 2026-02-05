@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Play Pong",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/lesson07pong/ponggame/bin/Debug/net9.0/ponggame.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/lesson07pong/ponggame",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        }
+    ]
+}
